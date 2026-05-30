@@ -1,9 +1,9 @@
 import SmoothScroll from "./components/misc/SmoothScroll";
 import About from "./sections/About";
-import NoteToGo from "./sections/NoteToGo";
+import Projects from "./sections/Projects";
 import NoteToGoSection from "./sections/NoteToGoSection";
 import Opening from "./sections/Opening";
-import Projects from "./sections/Projects";
+import ProjectsContents from "./sections/ProjectsContents";
 import ProjectsWrapper from "./sections/ProjectsWrapper";
 import Skills from "./sections/Skills";
 
@@ -18,11 +18,11 @@ export default function Home() {
 
           <Skills />
 
-          <ProjectsWrapper>
-            <Projects />
+          {/* <ProjectsWrapper> */}
+            <ProjectsContents />
 
-            <NoteToGo />
-          </ProjectsWrapper>
+            <Projects />
+          {/* </ProjectsWrapper> */}
         </div>
       </SmoothScroll>
     </>

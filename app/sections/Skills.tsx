@@ -79,7 +79,7 @@ export default function Skills() {
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top top',
-        end: '+=400%',
+        end: '+=300%',
         // scrub: true,
         pin: true,
         invalidateOnRefresh: true,
@@ -127,7 +127,7 @@ export default function Skills() {
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top top',
-        end: '+=300%',        // extends 100% beyond the entry pin
+        end: '+=200%',        // extends 100% beyond the entry pin
         scrub: 1,
         invalidateOnRefresh: true,
       },
@@ -187,7 +187,7 @@ export default function Skills() {
       {/* Heading */}
       <h2
         ref={headingRef}
-        className="font-black tracking-tight text-[60px] md:text-[100px] xl:text-[140px] leading-none mb-16 overflow-hidden"
+        className="font-semibold tracking-tight text-[60px] md:text-[100px] xl:text-[140px] leading-none mb-16 overflow-hidden"
         style={{ clipPath: 'inset(0 0 -20% 0)' }}
       >
         SKILLS
