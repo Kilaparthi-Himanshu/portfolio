@@ -12,11 +12,11 @@ const SKILLS = [
     items: [
       'React',
       'Next.js',
+      'TanStack Start',
       'TypeScript',
       'Tailwind CSS',
       'GSAP',
       'Framer Motion',
-      'TanStack Start',
       'Jotai',
     ],
   },
@@ -27,7 +27,7 @@ const SKILLS = [
       'Node.js',
       'Express',
       'Supabase',
-      'MongoDB',
+      'PostgreSQL',
       'Redis',
       'WebSockets',
       'REST APIs',
@@ -137,7 +137,7 @@ export default function Skills() {
 
     exitTl.to(sectionRef.current, {
       scale: 0.88,
-      borderRadius: '20px',
+      borderRadius: '30px',
       ease: 'power2.inOut',
       duration: 1,
     });
@@ -211,6 +211,7 @@ export default function Skills() {
                 <li
                   key={item}
                   className="skill-item flex items-center gap-3 group cursor-default"
+                  data-cursor-hover
                 >
                   <span
                     className="w-1 h-1 rounded-full bg-white/20 group-hover:bg-white/80 transition-colors duration-300"

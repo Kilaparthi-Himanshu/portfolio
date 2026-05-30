@@ -4,6 +4,7 @@ import NoteToGo from "./sections/NoteToGo";
 import NoteToGoSection from "./sections/NoteToGoSection";
 import Opening from "./sections/Opening";
 import Projects from "./sections/Projects";
+import ProjectsWrapper from "./sections/ProjectsWrapper";
 import Skills from "./sections/Skills";
 
 export default function Home() {
@@ -17,11 +18,11 @@ export default function Home() {
 
           <Skills />
 
-          <Projects />
+          <ProjectsWrapper>
+            <Projects />
 
-          {/* <NoteToGoSection /> */}
-
-          {/* <NoteToGo /> */}
+            <NoteToGo />
+          </ProjectsWrapper>
         </div>
       </SmoothScroll>
     </>

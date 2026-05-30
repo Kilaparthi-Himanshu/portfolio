@@ -107,7 +107,7 @@ export default function About() {
         }
       });
 
-      imageTl.to({}, { duration: 2 }); // delay flip and zoom until above animations finish
+      imageTl.to({}, { duration: 3 }); // delay flip and zoom until above animations finish
 
       imageTl.to('.photo-inner', {
         rotateY: 180,
@@ -176,7 +176,7 @@ export default function About() {
       </div>
 
       {/* Round Version */}
-      {/* <div className="my-photo absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  before:absolute before:inset-0 before:rounded-full before:bg-stone-700 before:content-[''] before:-z-10 w-50 h-50">
+      {/* <div className="my-photo absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 before:absolute before:inset-0 before:rounded-full before:bg-stone-700 before:content-[''] before:-z-10 w-50 h-50">
         <img className="rounded-full transition-[transform, shadow] duration-300 ease-out hover:-translate-y-2 hover:translate-x-2 hover:shadow-2xl hover:shadow-stone-700 w-full h-full object-cover" src='/my_photo.png' />
       </div> */}
 

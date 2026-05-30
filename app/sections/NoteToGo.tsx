@@ -94,7 +94,8 @@ export default function NoteToGo() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-stone-700 text-white"
+      className="relative notetogo h-screen w-full overflow-hidden bg-transparent border-t text-white"
+      // style={{ transform: 'translateY(200%)' }}
     >
       {/* ATMOSPHERIC GLOW */}
       {/* <div className="background-glow absolute inset-0 opacity-30">

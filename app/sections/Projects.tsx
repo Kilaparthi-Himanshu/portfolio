@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useRef, useState } from 'react';
+import { FaArrowUpLong } from "react-icons/fa6";
 
 const PROJECTS = [
   {
@@ -12,21 +13,21 @@ const PROJECTS = [
     title: 'BlinkShare',
     tags: ['Next.js', 'Supabase', 'Realtime', 'File Sharing'],
     year: '2025',
-    desc: 'Secure high-speed file sharing with expiring links, realtime transfers, and auth-less encrypted access.',
+    desc: 'Secure, lightning-fast file sharing with expiring sessions and no sign-up required.',
   },
   {
     slug: 'notetogo',
     title: 'NoteToGo',
     tags: ['Chrome Extension', 'React', 'Plasmo'],
-    year: '2024',
-    desc: 'Capture thoughts anywhere on the web.',
+    year: '2026',
+    desc: 'A seamless cross-device note-taking extension with instant sync, rich editing, and distraction-free capture anywhere on the web.',
   },
   {
     slug: 'cubely',
     title: 'Cubely',
-    tags: ['Three.js', 'React Three Fiber', 'Game Dev'],
-    year: '2024',
-    desc: 'A Minecraft-inspired voxel sandbox built to explore procedural worlds, rendering, and game systems.',
+    tags: ['Rust', 'Tauri', 'Minecraft'],
+    year: '2026',
+    desc: 'Cubely is an open-source desktop app for instantly creating, managing, and sharing Minecraft servers with built-in tunneling and seamless one-click setup.',
   },
 ];
 
@@ -49,7 +50,7 @@ export default function Projects() {
     ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top top',
-      end: '+=250%',
+      end: '+=350%',
       pin: true,
       invalidateOnRefresh: true,
       onEnter: () => {
@@ -57,9 +58,9 @@ export default function Projects() {
       },
 
       onLeaveBack: () => {
-        tl.timeScale(3).reverse(); // faster reverse
+        tl.pause(0); // faster reverse
       },
-      markers: false
+      pinSpacing: false,
     });
 
     gsap.set(splitHeading.chars, {
@@ -112,7 +113,7 @@ export default function Projects() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen w-full bg-stone-800 text-white flex flex-col justify-center px-10 md:px-20 overflow-hidden"
+      className="projects relative h-screen w-full bg-stone-800 text-white flex flex-col justify-center px-10 md:px-20 overflow-hidden"
       style={{ marginTop: '-30vh', position: 'relative', zIndex: 0 }}
     >
       {/* Giant ghost title that changes on hover */}
@@ -120,7 +121,7 @@ export default function Projects() {
         {PROJECTS.map((p, i) => (
           <span
             key={p.slug}
-            className="absolute font-black tracking-tighter text-[15vw] text-white/[0.04] uppercase transition-opacity duration-500 select-none whitespace-nowrap"
+            className="absolute max-md:top-20 font-black tracking-tighter text-[15vw] text-white/[0.04] uppercase transition-opacity duration-500 select-none whitespace-nowrap"
             style={{ opacity: activeIndex === i ? 1 : 0 }}
           >
             {p.title}
@@ -150,6 +151,7 @@ export default function Projects() {
 
             <div
               className="project-row group flex items-center justify-between py-5 md:py-6 cursor-pointer"
+              //  before:absolute before:left-[-10] before:right-[-10] before:top-0 before:bottom-0 before:bg-white before:content-[''] before:origin-bottom before:-z-10 before:scale-y-0 hover:before:scale-y-100 before:transition-[scale]
               onMouseEnter={() => setActiveIndex(i)}
               onMouseLeave={() => setActiveIndex(null)}
               onClick={() => {
@@ -162,9 +164,15 @@ export default function Projects() {
                 <span className="text-xs text-white/20 font-mono tabular-nums w-5">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <span className="text-2xl md:text-4xl font-black tracking-tight group-hover:text-white/60 transition-colors duration-300">
-                  {project.title}
-                </span>
+                <div className='flex flex-col'>
+                  <span className="text-2xl md:text-4xl font-black tracking-tight group-hover:text-white/60 transition-colors duration-300">
+                    {project.title}
+                  </span>
+
+                  {/* <span className="text-md md:text-lg font-black tracking-tight text-neutral-500 group-hover:text-neutral-500/60 transition-colors duration-300">
+                    {project.desc}
+                  </span> */}
+                </div>
               </div>
 
               {/* Right: tags + year + arrow */}
@@ -179,11 +187,13 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
+
                 <span className="text-xs text-white/20 font-mono hidden md:block">
                   {project.year}
                 </span>
-                <span className="text-white/20 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-lg">
-                  ↗
+
+                <span className="text-white/20 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-lg rotate-45">
+                  <FaArrowUpLong />
                 </span>
               </div>
             </div>
