@@ -23,6 +23,10 @@ export default function Home() {
 
             <Projects />
           {/* </ProjectsWrapper> */}
+
+          <section
+            className="relative min-h-screen w-full overflow-hidden text-white"
+          ></section>
         </div>
       </SmoothScroll>
     </>

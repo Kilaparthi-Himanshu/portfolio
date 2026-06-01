@@ -50,7 +50,7 @@ export default function Projects() {
     ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top top',
-      end: '+=350%',
+      end: '+=450%',
       pin: true,
       invalidateOnRefresh: true,
       onEnter: () => {
@@ -113,7 +113,7 @@ export default function Projects() {
   return (
     <section
       ref={sectionRef}
-      className="projects relative h-screen w-full bg-stone-800 text-white flex flex-col justify-center px-10 md:px-20 overflow-hidden"
+      className="projects relative h-screen w-full bg-stone-800 text-white flex flex-col justify-center px-10 md:px-20 overflow-hidden mb-[100vh]"
       style={{ marginTop: '-30vh', position: 'relative', zIndex: 0 }}
     >
       {/* Giant ghost title that changes on hover */}
