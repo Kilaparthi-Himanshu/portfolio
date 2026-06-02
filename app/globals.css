@@ -1,4 +1,21 @@
 @import "tailwindcss";
+@plugin "@toolwind/corner-shape";
+
+/* @utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */
+
+.scrollbar-hide {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE/Edge */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
 
 ::selection {
   background: #ffffff;
@@ -36,4 +53,23 @@ body {
 
 .box {
   text-box: trim-both ex alphabetic;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 8px !important;  /* Width of vertical scrollbar */
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1) !important;  /* Scrollbar track */
+  border-radius: 4px !important;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2) !important;  /* Scrollbar handle */
+  border-radius: 4px !important;
+}
+
+/* Hover effects */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3) !important;
 }

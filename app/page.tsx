@@ -1,11 +1,12 @@
 import SmoothScroll from "./components/misc/SmoothScroll";
 import About from "./sections/About";
-import Projects from "./sections/Projects";
-import NoteToGoSection from "./sections/NoteToGoSection";
+// import Projects from "./sections/Projects";
+// import NoteToGoSection from "./sections/NoteToGoSection";
 import Opening from "./sections/Opening";
 import ProjectsContents from "./sections/ProjectsContents";
-import ProjectsWrapper from "./sections/ProjectsWrapper";
+// import ProjectsWrapper from "./components/archive/ProjectsWrapper";
 import Skills from "./sections/Skills";
+import { ProjectsModalRenderer } from "./sections/ProjectsModal";
 
 export default function Home() {
   return (
@@ -21,12 +22,14 @@ export default function Home() {
           {/* <ProjectsWrapper> */}
             <ProjectsContents />
 
-            <Projects />
+            {/* <Projects /> */}
           {/* </ProjectsWrapper> */}
 
-          <section
+          {/* <section
             className="relative min-h-screen w-full overflow-hidden text-white"
-          ></section>
+          ></section> */}
+
+          <ProjectsModalRenderer />
         </div>
       </SmoothScroll>
     </>

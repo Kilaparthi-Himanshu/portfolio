@@ -6,14 +6,20 @@ import { SplitText } from 'gsap/SplitText';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useRef, useState } from 'react';
 import { FaArrowUpLong } from "react-icons/fa6";
+import { useSetAtom } from 'jotai';
+import { activeProjectAtom, projectModalOpenAtom } from '../store/atoms';
+import NoteToGo from '../components/projects/NoteToGo';
+import BlinkShare from '../components/projects/BlinkShare';
+import Cubely from '../components/projects/Cubely';
 
-const PROJECTS = [
+export const PROJECTS = [
   {
     slug: 'notetogo',
     title: 'NoteToGo',
     tags: ['Chrome Extension', 'React', 'Plasmo'],
     year: '2026',
     desc: 'A seamless cross-device note-taking extension with instant sync, rich editing, and distraction-free capture anywhere on the web.',
+    component: <NoteToGo />
   },
   {
     slug: 'blinkshare',
@@ -21,6 +27,7 @@ const PROJECTS = [
     tags: ['Next.js', 'Supabase', 'Realtime', 'File Sharing'],
     year: '2025',
     desc: 'Secure, lightning-fast file sharing with expiring sessions and no sign-up required.',
+    component: <BlinkShare />
   },
   {
     slug: 'cubely',
@@ -28,8 +35,15 @@ const PROJECTS = [
     tags: ['Rust', 'Tauri', 'Minecraft'],
     year: '2026',
     desc: 'Cubely is an open-source desktop app for instantly creating, managing, and sharing Minecraft servers with built-in tunneling and seamless one-click setup.',
+    component: <Cubely />,
   },
 ];
+
+export const PROJECT_INDEX_MAP = {
+  notetogo: 0,
+  blinkshare: 1,
+  cubely: 2,
+};
 
 export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -110,6 +124,13 @@ export default function Projects() {
     }, '<+0.1');
   });
 
+  type ProjectSlug = "notetogo" | "blinkshare" | "cubely";
+
+  const setProjectModalOpen = useSetAtom(projectModalOpenAtom);
+
+  // For arrow navigation
+  const setActiveProjectIndex = useSetAtom(activeProjectAtom);
+
   return (
     <section
       ref={sectionRef}
@@ -141,6 +162,10 @@ export default function Projects() {
         style={{ clipPath: 'inset(0 0 -20% 0)' }}
       >
         PROJECTS
+
+        <p className='text-xl tracking-normal font-semibold'>
+          Select a project to view it.
+        </p>
       </h2>
 
       {/* Project list */}
@@ -150,13 +175,16 @@ export default function Projects() {
             <div className="project-line h-px bg-white/10 w-full" />
 
             <div
-              className="project-row group flex items-center justify-between py-5 md:py-6 cursor-pointer"
+              className="project-row group flex items-center justify-between py-5 md:py-6 cursor-pointer" 
+              data-cursor-hover
               //  before:absolute before:left-[-10] before:right-[-10] before:top-0 before:bottom-0 before:bg-white before:content-[''] before:origin-bottom before:-z-10 before:scale-y-0 hover:before:scale-y-100 before:transition-[scale]
               onMouseEnter={() => setActiveIndex(i)}
               onMouseLeave={() => setActiveIndex(null)}
               onClick={() => {
                 // scroll to NoteToGo or navigate
-                document.querySelector('#notetogo')?.scrollIntoView({ behavior: 'smooth' });
+                // document.querySelector('#notetogo')?.scrollIntoView({ behavior: 'smooth' });
+                setProjectModalOpen(true);
+                setActiveProjectIndex(PROJECT_INDEX_MAP[project.slug as ProjectSlug]);
               }}
             >
               {/* Left: index + title */}

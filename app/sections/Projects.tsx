@@ -193,7 +193,7 @@ export default function NoteToGo() {
           </div>
         </div>
 
-        <div className="right-curtain flex-1 bg-purple-900 origin-right flex items-center justify-between px-12 md:px-20 gap-8">
+        <div className="right-curtain flex-1 bg-purple-900 origin-right flex items-center justify-center px-12 md:px-20 gap-8">
           <div className="relative proj-mockup hidden md:flex flex-shrink-0 w-[380px] xl:w-[440px] aspect-[4/3] rounded-2xl bg-red border border-white/10 items-center justify-center before:absolute before:inset-0 before:bg-stone-700 before:content-[''] before:-z-10 before:rounded-2xl transition-[transform, shadow] duration-300 ease-out hover:-translate-y-2 hover:translate-x-2">
             <span className="text-white/20 text-sm font-mono">screenshot</span>
           </div>
@@ -222,7 +222,7 @@ export default function NoteToGo() {
           </div>
         </div>
 
-        <div className="right-curtain flex-1 bg-neutral-900 origin-right flex items-center justify-between px-12 md:px-20 gap-8">
+        <div className="right-curtain flex-1 bg-neutral-900 origin-right flex items-center justify-center px-12 md:px-20 gap-8">
           <div className="proj-mockup hidden md:flex flex-shrink-0 w-[380px] xl:w-[440px] aspect-[4/3] rounded-2xl bg-white/5 border border-white/10 items-center justify-center">
             <span className="text-white/20 text-sm font-mono">screenshot</span>
           </div>
@@ -251,7 +251,7 @@ export default function NoteToGo() {
           </div>
         </div>
 
-        <div className="right-curtain flex-1 bg-green-900 origin-right flex items-center justify-between px-12 md:px-20 gap-8">
+        <div className="right-curtain flex-1 bg-green-900 origin-right flex items-center justify-center px-12 md:px-20 gap-8">
           <div className="proj-mockup hidden md:flex flex-shrink-0 w-[380px] xl:w-[440px] aspect-[4/3] rounded-2xl bg-white/5 border border-white/10 items-center justify-center">
             <span className="text-white/20 text-sm font-mono">screenshot</span>
           </div>
