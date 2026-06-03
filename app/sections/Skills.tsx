@@ -52,6 +52,7 @@ const SKILLS = [
     items: [
       'Rust',
       'Axum',
+      'Actix',
       'Docker',
       'Kubernetes',
       'Linux',

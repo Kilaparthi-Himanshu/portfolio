@@ -3,72 +3,170 @@
 import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { withMedia } from '@/lib/gsapMedia';
+import { FaLocationArrow } from 'react-icons/fa6';
 
 export default function BlinkShare() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    const cleanup = withMedia(({ isMobile, isTablet, isDesktop }) => {
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      tl.fromTo('.left-curtain', 
-        { xPercent: -100, opacity: 0 },
-        { xPercent: 0, opacity: 1, duration: 1.2, ease: 'expo.out' }
-      );
+        tl.fromTo('.left-curtain', 
+          isMobile
+            ? { yPercent: -100, opacity: 0 }
+            : { xPercent: -100, opacity: 0 },
+          isMobile
+            ? { yPercent: 0, opacity: 1, duration: 1.2, ease: 'expo.out' }
+            : { xPercent: 0, opacity: 1, duration: 1.2, ease: 'expo.out' }
+        );
 
-      tl.fromTo('.right-curtain',
-        { xPercent: 100, opacity: 0 },
-        { xPercent: 0, opacity: 1, duration: 1.2, ease: 'expo.out' },
-        '<'
-      );
+        tl.fromTo('.right-curtain',
+           isMobile
+            ? { yPercent: 100, opacity: 0 }
+            : { xPercent: 100, opacity: 0 },
+          isMobile
+            ? { yPercent: 0, opacity: 1, duration: 1.2, ease: 'expo.out' }
+            : { xPercent: 0, opacity: 1, duration: 1.2, ease: 'expo.out' },
+          '<'
+        );
 
-      tl.fromTo('.proj-year',
-        { y: 16, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5 },
-        '-=0.3'
-      );
+        tl.fromTo('.proj-year',
+          { y: 16, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5 },
+          '-=0.3'
+        );
 
-      tl.fromTo('.proj-title',
-        { yPercent: 110, opacity: 0 },
-        { yPercent: 0, opacity: 1, duration: 0.75, ease: 'expo.out' },
-        '-=0.2'
-      );
+        tl.fromTo('.proj-title',
+          { yPercent: 110, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 0.75, ease: 'expo.out' },
+          '-=0.2'
+        );
 
-      tl.fromTo('.proj-desc',
-        { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6 },
-        '-=0.4'
-      );
+        tl.fromTo('.proj-desc',
+          { y: 24, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6 },
+          '-=0.4'
+        );
 
-      tl.fromTo('.proj-tag',
-        { y: 20, opacity: 0, scale: 0.85 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.08, ease: 'back.out(1.7)' },
-        '-=0.35'
-      );
+        tl.fromTo('.proj-tag',
+          { y: 20, opacity: 0, scale: 0.85 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.08, ease: 'back.out(1.7)' },
+          '-=0.35'
+        );
 
-      tl.fromTo('.proj-mockup',
-        { y: 60, opacity: 0, rotationX: 20, scale: 0.88 },
-        { y: 0, opacity: 1, rotationX: 0, scale: 1, duration: 0.85, ease: 'expo.out', transformPerspective: 800 },
-        '-=0.6'
-      );
+        tl.fromTo('.proj-mockup',
+          { y: 60, opacity: 0, rotationX: 20, scale: 0.88 },
+          { y: 0, opacity: 1, rotationX: 0, scale: 1, duration: 0.85, ease: 'expo.out', transformPerspective: 800},
+          '-=0.6'
+        );
 
-    }, containerRef);
+        tl.call(() => gsap.delayedCall(1.5, cycle), [], '-=0.5');
 
-    return () => ctx.revert();
+        tl.fromTo('.links', 
+          { y: 20, opacity: 0, scale: 0.85 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.2, stagger: 0.08, ease: 'back.out(1.7)' },
+          '-=0.35'
+        );
+
+        const cards = gsap.utils.toArray<HTMLElement>('.stack-card');
+        const total = cards.length;
+
+        // Each card peeks 18px above the one in front
+        const PEEK = 18;
+
+        // Set initial stack: index 0 = front (bottom of stack visually),
+        // higher index = further back (higher up)
+        gsap.set(cards, { transformOrigin: 'center center', rotation: 0, x: 0 });
+        cards.forEach((card, i) => {
+          const rank = i; // 0 = front, total-1 = back
+          gsap.set(card, {
+            zIndex: total - rank,
+            y: -rank * PEEK,
+            scale: 1 - rank * 0.04,
+          });
+        });
+
+        let current = 0; // cards[0] is now correctly the front
+
+        const cycle = () => {
+          const outCard = cards[current];
+          const nextIdx = (current + 1) % total;
+
+          // Front card drops down and fades out
+          gsap.to(outCard, {
+            y: 80,
+            scale: 0.88,
+            opacity: 0,
+            duration: 0.5,
+            ease: 'power2.in',
+            onComplete: () => {
+              const backRank = total - 1;
+
+              // First: move outCard completely off-screen before repositioning
+              gsap.set(outCard, {
+                opacity: 0,
+                y: 200,       // push it far out of view
+                zIndex: 0,    // behind everything
+              });
+
+              // Shift remaining cards forward
+              cards.forEach((card, i) => {
+                if (card === outCard) return;
+                const rank = ((i - nextIdx + total) % total);
+                gsap.to(card, {
+                  zIndex: total - rank,
+                  y: -rank * PEEK,
+                  scale: 1 - rank * 0.04,
+                  duration: 0.45,
+                  ease: 'power2.out',
+                });
+              });
+
+              // After the forward shift finishes, silently snap outCard to back
+              gsap.delayedCall(0.1, () => {
+                gsap.fromTo(outCard,
+                  {
+                    zIndex: 1,
+                    y: -backRank * PEEK,
+                    scale: 1 - backRank * 0.04,
+                    opacity: 0,
+                  },
+                  {
+                    opacity: 1,
+                    duration: 0.35,
+                    ease: 'power2.out',
+                  }
+                );
+              });
+
+              current = nextIdx;
+              gsap.delayedCall(1.8, cycle);
+            },
+          });
+        };
+      }, containerRef);
+
+      return () => ctx.revert();
+    });
+
+    return () => cleanup();
   }, []);
 
   return (
     <div ref={containerRef} className="project project-2 absolute inset-0 flex max-lg:flex-col overflow-hidden">
       <div className="left-curtain flex-1 bg-neutral-800 origin-left flex items-center justify-between px-12 md:px-20 gap-8">
-        <div className="flex flex-col gap-6 max-w-lg">
+        <div className="flex flex-col gap-6 max-sm:gap-2 max-w-lg">
           <span className="proj-year text-xs tracking-[0.3em] uppercase text-white/30 font-mono">2025</span>
           <div className="overflow-hidden">
-            <h3 className="proj-title text-[56px] md:text-[72px] font-semibold tracking-tight leading-none text-white">
+            <h3 className="proj-title text-[30px] md:text-[72px] font-semibold tracking-tight leading-none text-white">
               BlinkShare
             </h3>
           </div>
           <p className="proj-desc text-white/50 text-base max-sm:text-[12px] md:text-lg leading-relaxed">
-            BlinkShare is a secure file-sharing platform that allows users to transfer files through temporary sharing sessions without creating an account. Built with Next.js, TypeScript, Supabase, and deployed globally on Vercel, it features real-time uploads, password-protected sessions, expiring links, usage limits, and secure access controls. The platform was designed to make sharing files fast, private, and effortless while maintaining a strong focus on security.
+            BlinkShare is a secure file-sharing platform that allows users to share files instantly through direct transfers or collaborative sharing sessions without requiring an account. Built with Next.js, TypeScript, Supabase, and globally deployed on Vercel, it features real-time uploads, password-protected sessions, and secure access controls. The platform is designed to provide fast, private, and frictionless file sharing while maintaining strong security standards.
           </p>
           <div className="flex flex-wrap gap-2">
             {['Next.js', 'Supabase', 'Realtime', 'File Sharing'].map(tag => (
@@ -80,9 +178,39 @@ export default function BlinkShare() {
         </div>
       </div>
 
-      <div className="right-curtain flex-1 bg-neutral-900 origin-right flex items-center justify-center px-12 md:px-20 gap-8">
-        <div className="proj-mockup md:flex flex-shrink-0 w-[380px] xl:w-[440px] aspect-[4/3] rounded-2xl bg-white/5 border border-white/10 items-center justify-center">
-          <span className="text-white/20 text-sm font-mono">screenshot</span>
+      <div className="right-curtain max-sm:flex-[0.8] flex-1 bg-neutral-900 origin-right flex items-center justify-center px-12 md:px-20 gap-8">
+        <div className="proj-mockup relative w-full max-w-[380px] xl:max-w-[440px] aspect-[4/3]">
+          <img
+            src="/blinkshare/bs_1.png"
+            className="stack-card stack-card-1 absolute inset-0 w-full h-full object-cover rounded-2xl"
+          />
+
+          <img
+            src="/blinkshare/bs_2.png"
+            className="stack-card stack-card-2 absolute inset-0 w-full h-full object-cover rounded-2xl"
+          />
+
+          <img
+            src="/blinkshare/bs_3.png"
+            className="stack-card stack-card-3 absolute inset-0 w-full h-full object-cover rounded-2xl"
+          />
+        </div>
+
+        <div className='absolute bottom-5 right-0 left-0 flex gap-3 items-center justify-center'>
+          {[
+            { label: 'Website', href: 'https://blinkshare.vercel.app/' },
+            { label: 'GitHub', href: 'https://github.com/Kilaparthi-Himanshu/file-sharing' },
+          ].map(({ label, href }) => (
+            <a
+              key={label}
+              href={href}
+              target='_blank'
+              className='links flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white/70 hover:text-blue-400 hover:border-white/40 hover:bg-white/10 transition-all duration-200 text-xs tracking-wide'
+            >
+              {label}
+              <FaLocationArrow className='text-[10px] opacity-60' />
+            </a>
+          ))}
         </div>
       </div>
     </div>

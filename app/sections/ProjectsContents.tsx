@@ -163,7 +163,7 @@ export default function Projects() {
       >
         PROJECTS
 
-        <p className='text-xl tracking-normal font-semibold'>
+        <p className='text-xl tracking-normal font-normal'>
           Select a project to view it.
         </p>
       </h2>

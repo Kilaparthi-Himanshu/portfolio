@@ -32,7 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
         <CustomCursor />
-        <Navbar />
+        {/* <Navbar /> */}
         {children}
       </body>
     </html>

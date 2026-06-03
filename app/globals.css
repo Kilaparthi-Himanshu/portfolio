@@ -73,3 +73,25 @@ body {
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.3) !important;
 }
+
+.stack-card {
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 25px 80px rgba(0,0,0,.4);
+  will-change: transform;
+}
+
+.stack-card-1 {
+  z-index: 3;
+}
+
+.stack-card-2 {
+  z-index: 2;
+  transform: translateY(-20px) scale(.95);
+}
+
+.stack-card-3 {
+  z-index: 1;
+  transform: translateY(-40px) scale(.9);
+}

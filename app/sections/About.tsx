@@ -133,7 +133,7 @@ export default function About() {
       className="relative h-screen w-full overflow-hidden bg-stone-800 text-white flex"
     >
       <div className='flex-1 p-10'>
-        <h1 ref={textRef} className="font-semibold about-title tracking-tight text-[38px] sm:text-[60px] md:text-[80px] lg:text-[110px] xl:text-[160px]">
+        <h1 ref={textRef} className="font-semibold about-title tracking-tight text-[33px] sm:text-[60px] md:text-[80px] lg:text-[110px] xl:text-[160px]">
           ABOUT <br />ME
         </h1>
 
