@@ -5,13 +5,27 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { withMedia } from '@/lib/gsapMedia';
 import { FaLocationArrow } from "react-icons/fa";
+import { SplitText } from "gsap/SplitText";
+
+gsap.registerPlugin(SplitText);
 
 export default function NoteToGo() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
 
   useGSAP(() => {
     const cleanup = withMedia(({ isMobile, isTablet, isDesktop }) => {
       const ctx = gsap.context(() => {
+        if (!textRef.current) return;
+
+        const split = new SplitText(textRef.current, {
+          type: "lines",
+        });
+
+        for (let i = 0; i < split.lines.length; i++) {
+          split.lines[i].classList.add("letters");
+        }
+
         const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
         tl.fromTo('.left-curtain', 
@@ -45,11 +59,20 @@ export default function NoteToGo() {
           '-=0.2'
         );
 
-        tl.fromTo('.proj-desc',
-          { y: 24, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 },
-          '-=0.4'
-        );
+        // tl.fromTo('.proj-desc',
+        //   { y: 24, opacity: 0 },
+        //   { y: 0, opacity: 1, duration: 0.6 },
+        //   '-=0.4'
+        // );
+
+        tl.from(split.lines, {
+          y: 200,
+          opacity: 0,
+          stagger: 0.05,
+          duration: 0.5,
+          ease: "power4.out",
+          invalidateOnRefresh: true,
+        }, "<");
 
         tl.fromTo('.proj-tag',
           { y: 20, opacity: 0, scale: 0.85 },
@@ -173,7 +196,7 @@ export default function NoteToGo() {
             </h3>
           </div>
 
-          <p className="proj-desc text-white/50 text-base max-sm:text-[12px] md:text-lg leading-relaxed">
+          <p ref={textRef} className="proj-desc text-white/50 text-base max-sm:text-[12px] md:text-lg leading-relaxed">
             NoteToGo is a cross-device note-taking Chrome extension designed for capturing ideas, snippets, and reminders while browsing the web. Built with React, TypeScript, Plasmo, Supabase, and Tiptap, it features rich text editing, customization options, password protection, cloud sync, and note export. Its backend leverages CRDTs with Yjs and a dedicated Hocuspocus Node.js server to power real-time syncing and collaboration, enabling conflict-free editing across devices while maintaining a fast and seamless writing experience.
           </p>
 

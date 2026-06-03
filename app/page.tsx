@@ -7,6 +7,7 @@ import ProjectsContents from "./sections/ProjectsContents";
 // import ProjectsWrapper from "./components/archive/ProjectsWrapper";
 import Skills from "./sections/Skills";
 import { ProjectsModalRenderer } from "./sections/ProjectsModal";
+import Contact from "./sections/Contact";
 
 export default function Home() {
   return (
@@ -30,6 +31,8 @@ export default function Home() {
           ></section> */}
 
           <ProjectsModalRenderer />
+
+          <Contact />
         </div>
       </SmoothScroll>
     </>

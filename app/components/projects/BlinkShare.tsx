@@ -5,13 +5,27 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { withMedia } from '@/lib/gsapMedia';
 import { FaLocationArrow } from 'react-icons/fa6';
+import { SplitText } from "gsap/SplitText";
+
+gsap.registerPlugin(SplitText);
 
 export default function BlinkShare() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
 
   useGSAP(() => {
     const cleanup = withMedia(({ isMobile, isTablet, isDesktop }) => {
       const ctx = gsap.context(() => {
+        if (!textRef.current) return;
+
+        const split = new SplitText(textRef.current, {
+          type: "lines",
+        });
+
+        for (let i = 0; i < split.lines.length; i++) {
+          split.lines[i].classList.add("letters");
+        }
+
         const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
         tl.fromTo('.left-curtain', 
@@ -45,11 +59,20 @@ export default function BlinkShare() {
           '-=0.2'
         );
 
-        tl.fromTo('.proj-desc',
-          { y: 24, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 },
-          '-=0.4'
-        );
+        // tl.fromTo('.proj-desc',
+        //   { y: 24, opacity: 0 },
+        //   { y: 0, opacity: 1, duration: 0.6 },
+        //   '-=0.4'
+        // );
+
+        tl.from(split.lines, {
+          y: 200,
+          opacity: 0,
+          stagger: 0.05,
+          duration: 0.5,
+          ease: "power4.out",
+          invalidateOnRefresh: true,
+        }, "<");
 
         tl.fromTo('.proj-tag',
           { y: 20, opacity: 0, scale: 0.85 },
@@ -165,7 +188,7 @@ export default function BlinkShare() {
               BlinkShare
             </h3>
           </div>
-          <p className="proj-desc text-white/50 text-base max-sm:text-[12px] md:text-lg leading-relaxed">
+          <p ref={textRef} className="proj-desc text-white/50 text-base max-sm:text-[12px] md:text-lg leading-relaxed">
             BlinkShare is a secure file-sharing platform that allows users to share files instantly through direct transfers or collaborative sharing sessions without requiring an account. Built with Next.js, TypeScript, Supabase, and globally deployed on Vercel, it features real-time uploads, password-protected sessions, and secure access controls. The platform is designed to provide fast, private, and frictionless file sharing while maintaining strong security standards.
           </p>
           <div className="flex flex-wrap gap-2">
@@ -204,6 +227,7 @@ export default function BlinkShare() {
             <a
               key={label}
               href={href}
+              rel="noopener noreferrer"
               target='_blank'
               className='links flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm text-white/70 hover:text-blue-400 hover:border-white/40 hover:bg-white/10 transition-all duration-200 text-xs tracking-wide'
             >
