@@ -24,6 +24,10 @@ export default function Opening() {
       split.chars[i].classList.add("letters");
     }
 
+    gsap.set(".first-letter", {
+      force3D: false,
+    });
+
     gsap.from(split.chars, {
       y: 200,
       opacity: 0,

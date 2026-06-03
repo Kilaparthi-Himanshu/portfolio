@@ -30,11 +30,12 @@ export default function Home() {
             className="relative min-h-screen w-full overflow-hidden text-white"
           ></section> */}
 
-          <ProjectsModalRenderer />
 
           <Contact />
         </div>
       </SmoothScroll>
+
+      <ProjectsModalRenderer />
     </>
   );
 }

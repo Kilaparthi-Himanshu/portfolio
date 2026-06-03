@@ -173,7 +173,7 @@ export default function Skills() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen max-md:min-h-max w-full bg-stone-700 text-white flex flex-col justify-center px-10 md:px-20 overflow-hidden max-md:pt-12 z-10"
+      className="relative max-md:min-h-max md:h-screen w-full bg-stone-700 text-white flex flex-col justify-center px-10 md:px-20 overflow-hidden max-md:py-12 z-10"
       style={{ position: 'relative' }}
     >
       {/* Subtle grain texture overlay */}
@@ -228,7 +228,7 @@ export default function Skills() {
       </div>
 
       {/* Bottom label */}
-      <p className="absolute max-md:top-14 bottom-10 right-10 text-xs tracking-[0.25em] uppercase text-white/20">
+      <p className="absolute max-md:top-5 bottom-10 right-10 text-xs tracking-[0.25em] uppercase text-white/20">
         What I work with
       </p>
     </section>

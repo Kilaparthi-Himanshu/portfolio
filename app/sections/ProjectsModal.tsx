@@ -204,11 +204,11 @@ function ProjectsModal({
         {PROJECTS[activeProjectIndex].component}
 
         <motion.div className='w-max p-1 bg-neutral-400/20 rounded-3xl absolute right-3 top-3 z-999 flex gap-1 border border-neutral-400/50'>
-          <button className='hover:bg-neutral-400/40 p-2 rounded-full active:scale-90 transition-all' data-cursor-hover onClick={prevProject}>
+          <button className='hover:bg-neutral-400/40 p-2 rounded-full active:scale-90 transition-all text-white' data-cursor-hover onClick={prevProject}>
             <FaArrowLeft size={22} />
           </button>
 
-          <button className='hover:bg-neutral-400/40 p-2 rounded-full active:scale-90 transition-all' data-cursor-hover onClick={nextProject}>
+          <button className='hover:bg-neutral-400/40 p-2 rounded-full active:scale-90 transition-all text-white' data-cursor-hover onClick={nextProject}>
             <FaArrowRight size={22} />
           </button>
         </motion.div>

@@ -26,6 +26,7 @@ export default function Contact() {
     const splitHeading = new SplitText(headingRef.current, { type: 'chars' });
     const linkCards = gsap.utils.toArray<HTMLElement>('.contact-link-card');
     const tagline = sectionRef.current.querySelector('.contact-tagline');
+    const dropTagline  = sectionRef.current.querySelector('.drop-tagline');
     const footerItems = gsap.utils.toArray<HTMLElement>('.contact-footer-item');
 
     const tl = gsap.timeline({
@@ -49,6 +50,17 @@ export default function Contact() {
 
     if (tagline) {
       const splitTagline = new SplitText(tagline as HTMLElement, { type: 'words' });
+      tl.from(splitTagline.words, {
+        y: 40,
+        opacity: 0,
+        stagger: 0.04,
+        duration: 0.7,
+        ease: 'power3.out',
+      }, '>-0.6');
+    }
+
+    if (dropTagline) {
+      const splitTagline = new SplitText(dropTagline as HTMLElement, { type: 'words' });
       tl.from(splitTagline.words, {
         y: 40,
         opacity: 0,
@@ -112,8 +124,8 @@ export default function Contact() {
       className="relative h-screen w-full bg-stone-900 text-white flex flex-col justify-between px-10 md:px-20 py-16 overflow-hidden"
     >
       {/* Ghost watermark */}
-      <div className="pointer-events-none absolute inset-0 flex items-end justify-end overflow-hidden pb-8 pr-8">
-        <span className="text-[22vw] font-bold tracking-tighter text-white/[0.025] uppercase leading-none select-none">
+      <div className="pointer-events-none absolute inset-0 flex items-end justify-end max-sm:justify-center overflow-hidden pb-8 sm:pr-8">
+        <span className=" max-sm:text-[15vw] text-[22vw] font-bold tracking-tighter text-white/[0.025] uppercase leading-none select-none">
           CONTACT
         </span>
       </div>
@@ -135,7 +147,7 @@ export default function Contact() {
           </h2>
         </div>
 
-        <div className="contact-footer-item flex items-center gap-3 mb-2 self-end md:self-auto">
+        <div className="contact-footer-item flex items-center gap-3 mb-2 max-sm:self-start self-end md:self-auto">
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
@@ -146,7 +158,7 @@ export default function Contact() {
 
       {/* Big email CTA */}
       <div className="flex flex-col items-start gap-3">
-        <p className="text-xs tracking-[0.25em] uppercase text-white/20">Drop a line</p>
+        <p className="drop-tagline text-xs tracking-[0.25em] uppercase text-white/20">Drop a line</p>
         <div className="overflow-hidden">
           <a
             ref={emailRef}
@@ -193,13 +205,13 @@ export default function Contact() {
 
       {/* Footer strip */}
       <div className="flex items-center justify-between">
-        <p className="contact-footer-item text-[8px] tracking-[0.25em] uppercase text-white/20">
+        <p className="contact-footer-item text-[8px] tracking-[0.25em] uppercase text-white/20 max-sm:text-center">
           Himanshu · 2026
         </p>
-        <p className="contact-footer-item text-[8px] tracking-[0.25em] uppercase text-white/20">
+        <p className="contact-footer-item text-[8px] tracking-[0.25em] uppercase text-white/20 max-sm:text-center">
           Visakhapatnam, India
         </p>
-        <p className="contact-footer-item text-[8px] tracking-[0.25em] uppercase text-white/20">
+        <p className="contact-footer-item text-[8px] tracking-[0.25em] uppercase text-white/20 max-sm:text-center">
           Built with Next.js & GSAP
         </p>
       </div>
