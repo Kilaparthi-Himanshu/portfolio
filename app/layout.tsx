@@ -22,6 +22,27 @@ export const metadata: Metadata = {
     icon: "/my_photo.ico",
     apple: "/my_photo.ico",
   },
+  openGraph: {
+    title: "Himanshu Kilaparthi",
+    description: "Full Stack Developer — building digital experiences that feel alive.",
+    url: "https://himanshu-kilaparthi.vercel.app",
+    siteName: "Himanshu Kilaparthi",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 512,
+        height: 512,
+        alt: "Himanshu Kilaparthi Portfolio",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Himanshu Kilaparthi",
+    description: "Full Stack Developer — building digital experiences that feel alive.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
