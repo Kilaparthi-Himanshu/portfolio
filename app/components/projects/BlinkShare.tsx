@@ -175,7 +175,7 @@ export default function BlinkShare() {
       return () => ctx.revert();
     });
 
-    return () => cleanup();
+    return cleanup;
   }, []);
 
   return (
@@ -184,12 +184,12 @@ export default function BlinkShare() {
         <div className="flex flex-col gap-6 max-sm:gap-2 max-w-lg">
           <span className="proj-year text-xs tracking-[0.3em] uppercase text-white/30 font-mono">2025</span>
           <div className="overflow-hidden">
-            <h3 className="proj-title text-[30px] md:text-[72px] font-semibold tracking-tight leading-none text-white">
+            <h3 className="proj-title text-[25px] md:text-[72px] font-semibold tracking-tight leading-none text-white">
               BlinkShare
             </h3>
           </div>
           <p ref={textRef} className="proj-desc text-white/50 text-base max-sm:text-[12px] md:text-lg leading-relaxed">
-            BlinkShare is a secure file-sharing platform that allows users to share files instantly through direct transfers or collaborative sharing sessions without requiring an account. Built with Next.js, TypeScript, Supabase, and globally deployed on Vercel, it features real-time uploads, password-protected sessions, and secure access controls. The platform is designed to provide fast, private, and frictionless file sharing while maintaining strong security standards.
+            BlinkShare is a secure file-sharing platform that enables instant file transfers and collaborative sharing sessions without requiring an account. Built with Next.js, TypeScript, Supabase, and deployed globally on Vercel, it features real-time uploads, password-protected sessions secured with PBKDF2 and SHA-256, AES-GCM encrypted transfers, and secure access controls. The platform is designed to make file sharing fast, private, and seamless.
           </p>
           <div className="flex flex-wrap gap-2">
             {['Next.js', 'Supabase', 'Realtime', 'File Sharing'].map(tag => (

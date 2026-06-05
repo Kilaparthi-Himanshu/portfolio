@@ -97,7 +97,7 @@ export default function NoteToGoSection() {
       }, "<");
     });
 
-    return () => cleanup();
+    return cleanup;
   });
 
   return (

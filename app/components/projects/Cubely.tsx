@@ -175,7 +175,7 @@ export default function Cubely() {
       return () => ctx.revert();
     });
 
-    return () => cleanup();
+    return cleanup;
   }, []);
 
   return (
@@ -184,7 +184,7 @@ export default function Cubely() {
         <div className="flex flex-col gap-6 max-sm:gap-2 max-w-lg">
           <span className="proj-year text-xs tracking-[0.3em] uppercase text-white/30 font-mono">2026</span>
           <div className="overflow-hidden">
-            <h3 className="proj-title text-[30px] md:text-[72px] font-semibold tracking-tight leading-none text-white">
+            <h3 className="proj-title text-[25px] md:text-[72px] font-semibold tracking-tight leading-none text-white">
               Cubely
             </h3>
           </div>

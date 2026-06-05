@@ -64,7 +64,7 @@ export default function Projects() {
     ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top top',
-      end: '+=450%',
+      end: '+=400%',
       pin: true,
       invalidateOnRefresh: true,
       onEnter: () => {

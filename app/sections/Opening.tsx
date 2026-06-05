@@ -89,9 +89,9 @@ export default function Opening() {
       ease: "power2.inOut",
     }, 0);
 
-    tl.to("#moon", {
-      scale: 0.5,
-    }, 0);
+    // tl.to("#moon", {
+    //   scale: 0.5,
+    // }, 0);
 
     // const chars = split.chars;
 

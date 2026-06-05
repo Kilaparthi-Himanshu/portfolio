@@ -46,6 +46,7 @@ export default function About() {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top center",
+        invalidateOnRefresh: true,
 
         onEnter: () => {
           tl2.timeScale(1).play();
@@ -86,15 +87,15 @@ export default function About() {
         ease: "power4.out",
       }, ">-0.5");
 
-      tl2.fromTo('.navbar', {
-        y: 100,
-        opacity: 0,
-      }, {
-        y: 0,
-        opacity: 100,
-        ease: "power4.out",
-        duration: "1",
-      }, "<+0.2");
+      // tl2.fromTo('.navbar', {
+      //   y: 100,
+      //   opacity: 0,
+      // }, {
+      //   y: 0,
+      //   opacity: 100,
+      //   ease: "power4.out",
+      //   duration: "1",
+      // }, "<+0.2");
 
       const imageTl = gsap.timeline({
         scrollTrigger: {
@@ -124,7 +125,7 @@ export default function About() {
       }, ">-0.5");
     });
 
-    return () => cleanup;
+    return cleanup;
   });
 
   return (

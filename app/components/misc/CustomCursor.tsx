@@ -7,6 +7,9 @@ export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouchDevice) return; // bail early on mobile
+
     const cursor = cursorRef.current;
 
     if (!cursor) return;
@@ -52,6 +55,7 @@ export default function CustomCursor() {
     <div
       ref={cursorRef}
       className="
+        pointer-coarse:hidden
         pointer-events-none
         fixed
         left-0

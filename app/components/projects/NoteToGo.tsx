@@ -175,7 +175,7 @@ export default function NoteToGo() {
       return () => ctx.revert();
     });
 
-    return () => cleanup();
+    return cleanup;
   }, []);
 
   return (
@@ -191,7 +191,7 @@ export default function NoteToGo() {
 
           {/* Clip mask wrapper for the title slide-up */}
           <div className="overflow-hidden">
-            <h3 className="proj-title text-[30px] md:text-[72px] font-semibold tracking-tight leading-none text-white">
+            <h3 className="proj-title text-[25px] md:text-[72px] font-semibold tracking-tight leading-none text-white">
               NoteToGo
             </h3>
           </div>

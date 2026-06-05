@@ -162,7 +162,7 @@
 //       });
 //     });
 
-//     return () => cleanup();
+//     return cleanup;
 //   }, { scope: sectionRef });
 
 //   return (

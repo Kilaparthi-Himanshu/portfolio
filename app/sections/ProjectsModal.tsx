@@ -12,6 +12,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import { withMedia } from '@/lib/gsapMedia';
 import { FaArrowLeft } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa6";
+import { RxCross2 } from "react-icons/rx";
 import { PROJECTS } from './ProjectsContents';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -156,7 +157,7 @@ function ProjectsModal({
       };
     });
 
-    return () => cleanup();
+    return cleanup;
   });
 
   const nextProject = () => {
@@ -174,7 +175,7 @@ function ProjectsModal({
   return (
     <motion.div 
       data-lenis-prevent
-			className='fixed inset-0 bg-black/40 flex p-8 z-99999 backdrop-blur-md gap-4'
+			className='fixed inset-0 h-[100lvh] bg-black/40 flex p-8 z-99999 backdrop-blur-md gap-4'
 			initial={{
 				opacity: 0
 			}}
@@ -203,12 +204,18 @@ function ProjectsModal({
 
         {PROJECTS[activeProjectIndex].component}
 
-        <motion.div className='w-max p-1 bg-neutral-400/20 rounded-3xl absolute right-3 top-3 z-999 flex gap-1 border border-neutral-400/50'>
-          <button className='hover:bg-neutral-400/40 p-2 rounded-full active:scale-90 transition-all text-white' data-cursor-hover onClick={prevProject}>
+        <motion.div className='w-max p-1 bg-red-400/30 rounded-3xl absolute max-lg:left-3 lg:right-3 top-3 z-999 flex gap-1 border border-neutral-400/50'>
+          <button className='hover:bg-red-400/40 p-1 max-sm:p-0 rounded-full active:scale-90 transition-all text-white' data-cursor-hover onClick={() => setIsOpen(false)}>
+            <RxCross2 size={20} />
+          </button>
+        </motion.div>
+
+        <motion.div className='w-max p-1 bg-neutral-400/20 rounded-3xl absolute max-lg:right-3 lg:left-3 top-3 z-999 flex gap-1 max-sm:gap-2 border border-neutral-400/50'>
+          <button className='hover:bg-neutral-400/40 p-2 max-sm:p-1 rounded-full active:scale-90 transition-all text-white' data-cursor-hover onClick={prevProject}>
             <FaArrowLeft size={22} />
           </button>
 
-          <button className='hover:bg-neutral-400/40 p-2 rounded-full active:scale-90 transition-all text-white' data-cursor-hover onClick={nextProject}>
+          <button className='hover:bg-neutral-400/40 p-2 max-sm:p-1 rounded-full active:scale-90 transition-all text-white' data-cursor-hover onClick={nextProject}>
             <FaArrowRight size={22} />
           </button>
         </motion.div>

@@ -10,9 +10,9 @@ import { FaArrowUpLong } from 'react-icons/fa6';
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const LINKS = [
-  { label: 'GitHub', handle: '@himanshu', href: 'https://github.com' },
-  { label: 'LinkedIn', handle: 'Himanshu', href: 'https://linkedin.com' },
-  { label: 'Twitter', handle: '@himanshu', href: 'https://twitter.com' },
+  { label: 'GitHub', handle: '@himanshu', href: 'https://github.com/Kilaparthi-Himanshu' },
+  { label: 'LinkedIn', handle: 'Himanshu', href: 'https://www.linkedin.com/in/kilaparthi-himanshu/' },
+  { label: 'Twitter', handle: '@himanshu', href: 'https://x.com/HimanshuNani9' },
 ];
 
 export default function Contact() {
@@ -36,7 +36,12 @@ export default function Contact() {
         end: '+=300%',
         pin: true,
         invalidateOnRefresh: true,
-        toggleActions: 'play none none reverse',
+        onEnter: () => {
+          tl.timeScale(1).play();
+        },
+        onLeaveBack: () => {
+          tl.timeScale(5).reverse(); // faster reverse
+        },
       },
     });
 
@@ -47,6 +52,13 @@ export default function Contact() {
       duration: 1,
       ease: 'power4.out',
     });
+
+    tl.from(".contact-large-text", {
+      y: 100,
+      opacity: 0,
+      duration: 0.4,
+      ease: 'power4.out',
+    }, ">-0.5");
 
     if (tagline) {
       const splitTagline = new SplitText(tagline as HTMLElement, { type: 'words' });
@@ -125,7 +137,7 @@ export default function Contact() {
     >
       {/* Ghost watermark */}
       <div className="pointer-events-none absolute inset-0 flex items-end justify-end max-sm:justify-center overflow-hidden pb-8 sm:pr-8">
-        <span className=" max-sm:text-[15vw] text-[22vw] font-bold tracking-tighter text-white/[0.025] uppercase leading-none select-none">
+        <span className="contact-large-text max-sm:text-[15vw] text-[22vw] font-bold tracking-tighter text-white/[0.025] uppercase leading-none select-none">
           CONTACT
         </span>
       </div>

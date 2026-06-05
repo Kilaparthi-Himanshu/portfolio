@@ -8,12 +8,16 @@ import ProjectsContents from "./sections/ProjectsContents";
 import Skills from "./sections/Skills";
 import { ProjectsModalRenderer } from "./sections/ProjectsModal";
 import Contact from "./sections/Contact";
+import Experience from "./sections/Experience";
+import RefreshOnResize from "./components/misc/RefreshOnResize";
 
 export default function Home() {
   return (
     <>
+      <RefreshOnResize />
+
       <SmoothScroll>
-        <div className="bg-stone-800">
+        <div className="wrapper-container bg-stone-800">
           <Opening />
 
           <About />
@@ -30,6 +34,7 @@ export default function Home() {
             className="relative min-h-screen w-full overflow-hidden text-white"
           ></section> */}
 
+          <Experience />
 
           <Contact />
         </div>

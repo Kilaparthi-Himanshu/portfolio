@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import React, { useRef } from 'react';
 import { SplitText } from 'gsap/SplitText';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import { withMedia } from '@/lib/gsapMedia';
 
 const SKILLS = [
   {
@@ -68,106 +69,110 @@ export default function Skills() {
   const gridRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!sectionRef.current || !headingRef.current || !gridRef.current) return;
+    const cleanup = withMedia(({ isMobile, isTablet, isDesktop }) => {
+      if (!sectionRef.current || !headingRef.current || !gridRef.current) return;
 
-    const splitHeading = new SplitText(headingRef.current, { type: 'chars' });
+      const splitHeading = new SplitText(headingRef.current, { type: 'chars' });
 
-    const categoryEls = gridRef.current.querySelectorAll('.skill-category');
-    const itemEls = gridRef.current.querySelectorAll('.skill-item');
-    const lineEls = gridRef.current.querySelectorAll('.skill-line');
+      const categoryEls = gridRef.current.querySelectorAll('.skill-category');
+      const itemEls = gridRef.current.querySelectorAll('.skill-item');
+      const lineEls = gridRef.current.querySelectorAll('.skill-line');
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: '+=300%',
-        // scrub: true,
-        pin: true,
-        invalidateOnRefresh: true,
-        toggleActions: 'play none none reverse',
-      },
-    });
-
-    // Heading chars fly in from below
-    tl.from(splitHeading.chars, {
-      y: 120,
-      opacity: 0,
-      stagger: 0.03,
-      // duration: 1.5,
-      ease: 'power4.out',
-    });
-
-    // Lines draw in
-    tl.from(lineEls, {
-      scaleX: 0,
-      transformOrigin: 'left center',
-      stagger: 0.15,
-      // duration: 1,
-      ease: 'expo.out',
-    }, '>-0.8');
-
-    // Category labels appear
-    tl.from(categoryEls, {
-      y: 40,
-      opacity: 0,
-      stagger: 0.12,
-      // duration: 0.8,
-      ease: 'power3.out',
-    }, '<+0.2');
-
-    // Skill pills stagger in
-    tl.from(itemEls, {
-      y: 30,
-      opacity: 0,
-      stagger: 0.05,
-      // duration: 0.6,
-      ease: 'power3.out',
-    }, '<+0.1');
-
-    const exitTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: '+=200%',        // extends 100% beyond the entry pin
-        scrub: 1,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    exitTl.to({}, { duration: 4 }); // idle
-
-    exitTl.to(sectionRef.current, {
-      scale: 0.88,
-      borderRadius: '30px',
-      ease: 'power2.inOut',
-      duration: 1,
-    });
-
-    const items = gsap.utils.toArray(".skill-item");
-
-    items.forEach((item: any, index) => {
-      item.addEventListener("mousemove", (e: any) => {
-        const bounds = item.getBoundingClientRect();
-        const x = e.clientX - bounds.left; // Find mouse X position inside the item
-
-        const center = bounds.width / 2; // Find the center of the item
-        const distance = Math.abs(x - center); // Calculate distance from center
-
-        const scale = gsap.utils.mapRange(0, 200, 1.2, 1, distance); // Convert distance into scale value
-
-        gsap.to(item, {
-          scale,
-          duration: 0.2,
-        });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: '+=300%',
+          // scrub: true,
+          pin: true,
+          invalidateOnRefresh: true,
+          toggleActions: 'play none none reverse',
+        },
       });
 
-      item.addEventListener("mouseleave", () => {
-        gsap.to(item, {
-          scale: 1,
-          duration: 0.3,
+      // Heading chars fly in from below
+      tl.from(splitHeading.chars, {
+        y: 120,
+        opacity: 0,
+        stagger: 0.03,
+        // duration: 1.5,
+        ease: 'power4.out',
+      });
+
+      // Lines draw in
+      tl.from(lineEls, {
+        scaleX: 0,
+        transformOrigin: 'left center',
+        stagger: 0.15,
+        // duration: 1,
+        ease: 'expo.out',
+      }, '>-0.8');
+
+      // Category labels appear
+      tl.from(categoryEls, {
+        y: 40,
+        opacity: 0,
+        stagger: 0.12,
+        // duration: 0.8,
+        ease: 'power3.out',
+      }, '<+0.2');
+
+      // Skill pills stagger in
+      tl.from(itemEls, {
+        y: 30,
+        opacity: 0,
+        stagger: 0.05,
+        // duration: 0.6,
+        ease: 'power3.out',
+      }, '<+0.1');
+
+      const exitTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: '+=200%',        // extends 100% beyond the entry pin
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      exitTl.to({}, { duration: 4 }); // idle
+
+      exitTl.to(sectionRef.current, {
+        scale: 0.88,
+        borderRadius: '30px',
+        ease: 'power2.inOut',
+        duration: 1,
+      });
+
+      const items = gsap.utils.toArray(".skill-item");
+
+      items.forEach((item: any, index) => {
+        item.addEventListener("mousemove", (e: any) => {
+          const bounds = item.getBoundingClientRect();
+          const x = e.clientX - bounds.left; // Find mouse X position inside the item
+
+          const center = bounds.width / 2; // Find the center of the item
+          const distance = Math.abs(x - center); // Calculate distance from center
+
+          const scale = gsap.utils.mapRange(0, 200, 1.2, 1, distance); // Convert distance into scale value
+
+          gsap.to(item, {
+            scale,
+            duration: 0.2,
+          });
+        });
+
+        item.addEventListener("mouseleave", () => {
+          gsap.to(item, {
+            scale: 1,
+            duration: 0.3,
+          });
         });
       });
     });
+
+    return cleanup;
   });
 
   return (
