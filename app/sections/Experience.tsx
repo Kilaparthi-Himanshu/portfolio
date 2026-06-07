@@ -5,16 +5,35 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useRef } from 'react';
+import { BsArrowUpRightCircleFill } from 'react-icons/bs';
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const CONTRIBUTIONS = [
-  { label: 'Razorpay Integration', desc: 'Full payment flow — order creation, webhook verification, and post-payment order fulfillment.', icon: '💳' },
-  { label: 'Supabase Backend', desc: 'Schema design, RLS policies, real-time subscriptions, and storage for product assets.', icon: '🗄️' },
-  { label: 'REST APIs & Webhooks', desc: 'Built and secured API routes for cart, checkout, orders, and payment event handlers.', icon: '🔗' },
-  { label: 'Twilio Messaging', desc: 'Automated SMS confirmations and delivery updates triggered via order status webhooks.', icon: '📱' },
-  { label: 'Cart & Checkout', desc: 'End-to-end cart logic with coupon codes, quantity controls, and dynamic pricing.', icon: '🛒' },
-  { label: 'Frontend UI', desc: 'Contributed to product pages, checkout UI, and responsive layout across the storefront.', icon: '🎨' },
+  {
+    label: 'Razorpay Integration',
+    desc: 'Implemented secure payment processing with order creation, signature verification, webhook handling, and automated fulfillment workflows.',
+  },
+  {
+    label: 'Supabase Backend',
+    desc: 'Designed database architecture, RLS policies, storage systems, and real-time features powering the e-commerce platform.',
+  },
+  {
+    label: 'REST APIs & Webhooks',
+    desc: 'Built backend APIs for cart, checkout, orders, and event-driven payment processing with robust validation.',
+  },
+  {
+    label: 'Twilio Messaging',
+    desc: 'Integrated automated SMS notifications for order confirmations, status updates, and delivery tracking.',
+  },
+  {
+    label: 'Cart & Checkout',
+    desc: 'Developed complete cart and checkout workflows including coupons, quantity controls, pricing logic, and validation.',
+  },
+  {
+    label: 'Frontend UI',
+    desc: 'Contributed to responsive storefront experiences, product pages, checkout screens, and customer-facing interfaces.',
+  },
 ];
 
 export default function Experience() {
@@ -57,12 +76,15 @@ export default function Experience() {
     tl.from(roleTag, { y: 12, opacity: 0, duration: 0.5, ease: 'power2.out' }, '>-0.5');
 
     // Meta pills stagger
-    tl.from(metaPills, {
+    tl.fromTo(metaPills, {
       y: 12,
       opacity: 0,
+      ease: 'power2.out',
+    }, {
+      opacity: 1,
+      y: 0,
       stagger: 0.07,
       duration: 0.4,
-      ease: 'power2.out',
     }, '>-0.3');
 
     // Contribution cards cascade
@@ -194,10 +216,10 @@ export default function Experience() {
                 href="https://www.ancientfoods.in/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="exp-pill text-[11px] tracking-wider uppercase px-3 py-1.5 rounded-full font-medium hover:opacity-70 transition-opacity"
+                className="exp-pill flex items-center gap-2 text-[11px] tracking-wider uppercase px-3 py-1.5 rounded-full font-medium hover:opacity-70 transition-opacity"
                 style={{ background: '#c8a882', color: '#fff' }}
               >
-                ancientfoods.in ↗
+                ancientfoods.in <BsArrowUpRightCircleFill size={18} />
               </a>
             </div>
           </div>
@@ -207,7 +229,7 @@ export default function Experience() {
 
             {/* Left: contribution cards grid */}
             <div className="flex-1 min-w-0 grid grid-cols-2 grid-rows-3 gap-3 content-start">
-              {CONTRIBUTIONS.map(({ label, desc, icon }, i) => (
+              {CONTRIBUTIONS.map(({ label, desc }, i) => (
                 <div
                   key={label}
                   className="contrib-card group relative rounded-2xl p-4 flex flex-col gap-1.5 cursor-default overflow-hidden"
